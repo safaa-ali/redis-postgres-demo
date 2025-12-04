@@ -8,6 +8,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.context.request.WebRequest;
@@ -57,25 +58,46 @@ public class GlobalExceptionHandler {
     }
 
     // 400 VALIDATION ERRORS (DTO)
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    public ResponseEntity<ApiError> handleValidation(MethodArgumentNotValidException ex, WebRequest request) {
+
+//        String validationMessage = ex.getBindingResult()
+//                .getFieldErrors()
+//                .stream()
+//                .map(err -> err.getField() + ": " + err.getDefaultMessage())
+//                .collect(Collectors.joining(", "));
+//
+//        ApiError error = new ApiError(
+//                LocalDateTime.now(),
+//                request.getDescription(false).replace("uri=", ""),
+//                HttpStatus.BAD_REQUEST.value(),
+//                "Validation Error",
+//                validationMessage
+//        );
+//
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+//    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiError> handleValidation(MethodArgumentNotValidException ex, WebRequest request) {
 
-        String validationMessage = ex.getBindingResult()
+        List<String> errors = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
-                .map(err -> err.getField() + ": " + err.getDefaultMessage())
-                .collect(Collectors.joining(", "));
+                .map(error -> error.getField() + ": " + error.getDefaultMessage())
+                .toList();
 
-        ApiError error = new ApiError(
+        ApiError apiError = new ApiError(
                 LocalDateTime.now(),
                 request.getDescription(false).replace("uri=", ""),
                 HttpStatus.BAD_REQUEST.value(),
                 "Validation Error",
-                validationMessage
+                errors
         );
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        return ResponseEntity.badRequest().body(apiError);
     }
+
 
     // 500 INTERNAL SERVER ERROR
     @ExceptionHandler(Exception.class)

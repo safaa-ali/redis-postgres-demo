@@ -2,6 +2,7 @@ package com.example.redis_demo.controller;
 
 import com.example.redis_demo.model.User;
 import com.example.redis_demo.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
+    public User createUser(@Valid @RequestBody User user) {
         return userService.saveUser(user);
     }
     @GetMapping()
@@ -35,7 +36,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public String updateUser(@PathVariable Long id, @RequestBody User user) {
+    public String updateUser(@PathVariable Long id, @Valid @RequestBody User user) {
         userService.updateUser(id, user); // updates DB and evicts cache
         return "User " + id + " updated";
     }

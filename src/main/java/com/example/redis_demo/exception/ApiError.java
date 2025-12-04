@@ -1,6 +1,7 @@
 package com.example.redis_demo.exception;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ApiError {
     private LocalDateTime timestamp;
@@ -8,8 +9,19 @@ public class ApiError {
     private int status;
     private String error;
     private String message;
+    private List<String> details;
 
-    public ApiError(LocalDateTime timestamp, String path, int status, String error, String message) {
+    public ApiError(LocalDateTime timestamp, String path, int status, String error, List<String> details) {
+        this.timestamp = timestamp;
+        this.path = path;
+        this.status = status;
+        this.error = error;
+      //  this.message = message;
+        this.details = details;
+
+    }
+
+    public ApiError(LocalDateTime now, String replace, int value, String error, String message) {
         this.timestamp = timestamp;
         this.path = path;
         this.status = status;
@@ -23,4 +35,8 @@ public class ApiError {
     public int getStatus() { return status; }
     public String getError() { return error; }
     public String getMessage() { return message; }
+
+    public List<String> getDetails() {
+        return details;
+    }
 }
