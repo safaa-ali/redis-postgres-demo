@@ -1,6 +1,7 @@
 package com.example.redis_demo.services;
 
 import com.example.redis_demo.dao.UserRepository;
+import com.example.redis_demo.exception.ResourceNotFoundException;
 import com.example.redis_demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -26,11 +27,11 @@ public class UserService {
     }
     @Cacheable(value = "users", key = "#id")
     public User getUser(Long id) {
-        System.out.println("Fetching from DB...");
-        return userRepository.findById(id).orElse(null);
+
+       return userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+
     }
-
-
 
     @CachePut(value = "users", key = "#result.id")
     public User saveUser(User user) {
@@ -40,17 +41,20 @@ public class UserService {
     @CacheEvict(value = "users", key = "#id")
     public void deleteUser(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+
 
         userRepository.deleteById(user.getId());
     }
     // Example: updating a user automatically clears cache
     @CacheEvict(value = "users", key = "#id")
-    public void updateUser(Long id, String newName) {
+    public void updateUser(Long id, User updatedUser) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
 
-        user.setName(newName);
+        user.setName(updatedUser.getName());
+        user.setEmail(updatedUser.getEmail());
+
         userRepository.save(user);
 
     }

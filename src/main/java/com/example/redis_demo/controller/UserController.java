@@ -35,8 +35,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public String updateUser(@PathVariable Long id, @RequestParam String name) {
-        userService.updateUser(id, name); // updates DB and evicts cache
+    public String updateUser(@PathVariable Long id, @RequestBody User user) {
+        userService.updateUser(id, user); // updates DB and evicts cache
         return "User " + id + " updated";
     }
 }
