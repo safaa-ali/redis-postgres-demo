@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -17,11 +18,19 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+
+    @Cacheable(value = "users")
+    public List<User> getUsers() {
+        System.out.println("Fetching from DB...");
+        return userRepository.findAll();
+    }
     @Cacheable(value = "users", key = "#id")
     public User getUser(Long id) {
         System.out.println("Fetching from DB...");
         return userRepository.findById(id).orElse(null);
     }
+
+
 
     @CachePut(value = "users", key = "#result.id")
     public User saveUser(User user) {
@@ -45,6 +54,5 @@ public class UserService {
         userRepository.save(user);
 
     }
-
 }
 
