@@ -1,4 +1,4 @@
-package com.example.redis_demo.exception;
+package com.example.login.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {

@@ -1,7 +1,7 @@
-package com.example.redis_demo.dao;
+package com.example.login.dao;
 
 
-import com.example.redis_demo.model.User;
+import com.example.login.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

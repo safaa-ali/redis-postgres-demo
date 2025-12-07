@@ -1,11 +1,11 @@
-package com.example.redis_demo;
+package com.example.login;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.example.redis_demo.dao.UserRepository;
-import com.example.redis_demo.model.User;
-import com.example.redis_demo.services.UserService;
+import com.example.login.dao.UserRepository;
+import com.example.login.model.User;
+import com.example.login.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

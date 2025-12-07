@@ -1,17 +1,15 @@
-package com.example.redis_demo.services;
+package com.example.login.services;
 
-import com.example.redis_demo.dao.UserRepository;
-import com.example.redis_demo.exception.ResourceNotFoundException;
-import com.example.redis_demo.model.User;
+import com.example.login.dao.UserRepository;
+import com.example.login.exception.ResourceNotFoundException;
+import com.example.login.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class UserService {

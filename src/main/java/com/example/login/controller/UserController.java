@@ -1,7 +1,7 @@
-package com.example.redis_demo.controller;
+package com.example.login.controller;
 
-import com.example.redis_demo.model.User;
-import com.example.redis_demo.services.UserService;
+import com.example.login.model.User;
+import com.example.login.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,4 +40,9 @@ public class UserController {
         userService.updateUser(id, user); // updates DB and evicts cache
         return "User " + id + " updated";
     }
+
+    @GetMapping()
+    public List<User> getAllUsers() {
+    return    userService.getUsers();}
+
 }

@@ -1,4 +1,4 @@
-package com.example.redis_demo.exception;
+package com.example.login.exception;
 
 public class BadRequestException extends RuntimeException {
     public BadRequestException(String message) {

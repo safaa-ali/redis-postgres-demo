@@ -1,4 +1,4 @@
-package com.example.redis_demo.config;
+package com.example.login.config;
 
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
