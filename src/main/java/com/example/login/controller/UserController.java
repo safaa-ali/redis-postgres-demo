@@ -41,8 +41,5 @@ public class UserController {
         return "User " + id + " updated";
     }
 
-    @GetMapping()
-    public List<User> getAllUsers() {
-    return    userService.getUsers();}
 
 }
