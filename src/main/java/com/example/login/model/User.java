@@ -25,13 +25,13 @@ public class User implements Serializable {
     )    private String email;
 
     public User() {}
-    public User(String name) { this.userName = name; }
-    public User(String name, String email) {
-        this.userName = name;
+    public User(String userName) { this.userName = userName; }
+    public User(String userName, String email) {
+        this.userName = userName;
         this.email = email;
     }
-    public User(String name, String email, Long id) {
-        this.userName = name;
+    public User(String userName, String email, Long id) {
+        this.userName = userName;
         this.email = email;
         this.id = id;
     }
@@ -45,12 +45,13 @@ public class User implements Serializable {
     }
 // Getters & setters
 
-    public String getName() {
+
+    public String getUserName() {
         return userName;
     }
 
-    public void setName(String name) {
-        this.userName = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {

@@ -17,7 +17,9 @@ public class UserController {
 
     @PostMapping
     public User createUser(@Valid @RequestBody User user) {
+
         return userService.saveUser(user);
+
     }
     @GetMapping()
     public List<User> getUsers() {
